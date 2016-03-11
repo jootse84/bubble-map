@@ -1,0 +1,24 @@
+.db
+
+# globals
+*.pyc
+*.log
+*.pid
+*.sqlite3
+
+# ignore conflict origin files
+*.orig
+
+# ignore vim swap files
+*.swp
+*.swo
+*~
+
+# dist files 
+dist/
+
+# npm modules
+node_modules/
+
+# bower components
+bower_components/
