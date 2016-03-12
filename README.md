@@ -39,7 +39,7 @@ Map zooms into the country represented by the 'id'. If 'id' is empty map zooms o
 
 ## Usage
 
-Firstly initialize  
+1. Initialize the map by indicating the id of the HTML element where to display the map, the mapbox token provided from your mapbox account, and the desired width and height of the map.
 
 ```js
 import LabelList from 'bubble-map/bundle/BubbleMap.js'
@@ -47,7 +47,7 @@ import LabelList from 'bubble-map/bundle/BubbleMap.js'
 let map = new BubbleMap('myElementId', 'my_mapbox_token', 840, 400)
 ```  
 
-Now we can render our information every time there is a relevant update of our data.
+2. Now we can render our information every time there is a relevant update of our data.
 
 ```js
 map.renderBubbles({
@@ -56,7 +56,7 @@ map.renderBubbles({
 }, "value")
 ```  
 
-We can even zoom-in and display a relevant value, i.e. zoom into Japan.
+3. We can even zoom-in and display a relevant value, i.e. zoom into Japan.
 
 ```js
 map.visitCountry("JP")
