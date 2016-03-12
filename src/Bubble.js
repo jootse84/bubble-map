@@ -73,9 +73,9 @@ export default class Bubble {
     setValue (value) {
         this.value = value
         this.nameSize = this.fontSize(this.name)
-        this.nameDims = this.size(this.name, ["text-country-circle"])
+        this.nameDims = this.size(this.name, ["text-name"])
         this.valueSize = this.fontSize(String(this.value))
-        this.valueDims = this.size(String(this.value), ["text-connections-circle"])
+        this.valueDims = this.size(String(this.value), ["text-value"])
     }
 
     getBubbleRadius () {
@@ -100,7 +100,7 @@ export default class Bubble {
             dimensions
 
         classes = classes || {};
-        classes.push('textDimensionCalculation')
+        classes.push('text')
 
         divElement = doc.createElement('div')
         divElement.setAttribute('class', classes.join(' '))

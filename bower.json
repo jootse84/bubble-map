@@ -1,0 +1,19 @@
+{
+  "name": "bubble-map",
+  "version": "0.0.0",
+  "main": "index.html",
+  "authors": [
+    "Jose E. Martinez"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "topojson": "~1.6.18"
+  }
+}

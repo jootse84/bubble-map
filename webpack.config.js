@@ -7,7 +7,7 @@ module.exports = {
     './src/test'
   ],
   output: {
-    path: path.join(__dirname, 'lib'),
+    path: path.join(__dirname, 'bundle'),
     filename: 'test.js',
     publicPath: '/static/'
   },

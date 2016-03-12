@@ -1,7 +1,6 @@
 import 'd3'
-import 'topojson/build/topojson'
-import './d3.geo.tile.v0.min'
-import './d3.geo.zoom'
+import '../lib/d3.geo.tile.v0.min'
+import '../lib/d3.geo.zoom'
 import $ from 'jquery'
 import jQuery from 'jquery'
 import Bubble from './Bubble'
@@ -86,6 +85,7 @@ export default class BubbleMap {
             else {
                 this.printWorld(data)
                 this.gravity()
+                this.renderLogo()
             }
         })
     }
@@ -135,7 +135,6 @@ export default class BubbleMap {
                 return d.id
             })
             .attr("d", this.path)
-
     }
 
     gravity () {
@@ -163,7 +162,7 @@ export default class BubbleMap {
                 })
 
             this.svg
-                .selectAll(".text-country-circle")
+                .selectAll(".text-name")
                 .attr("dx", (d) => {
                     return d.getNamePosition(d.x, d.y).x
                 })
@@ -172,7 +171,7 @@ export default class BubbleMap {
                 })
 
             this.svg
-                .selectAll(".text-connections-circle")
+                .selectAll(".text-value")
                 .attr("dx", (d) => {
                     return d.getValuePosition(d.x, d.y).x
                 })
@@ -207,31 +206,26 @@ export default class BubbleMap {
             }
         }
 
-        this.g.append("svg:image")
-          .attr("xlink:href", "images/mapbox-log.png")
-          .style("opacity",".5")
-          .attr("id","map-logo")
-          .style("cursor","pointer")
-          .attr("x", "20")
-          .attr("y", "390")
-          .attr("width", "50")
-          .attr("height", "50")
-          .on('click', this.handleGravity.bind(this))
-
         this.render()
+    }
+
+    renderLogo () {
+        this.g.append("svg:image")
+            .attr("xlink:href", "images/mapbox-log.png")
+            .style("opacity", ".5")
+            .attr("id", "map-logo")
+            .style("cursor", "pointer")
+            .attr("x", "20")
+            .attr("y", "390")
+            .attr("width", "50")
+            .attr("height", "50")
+            .on('click', this.handleGravity.bind(this))
     }
 
     handleGravity () {
         if (this.gravityActive) {
             this.gravityActive = false
-            this.force.gravity(0)
-                .charge(0)
-                .resume()
-
-            this.svg.selectAll("circle")
-                .attr("transform", (d) => {
-                    return "translate(" + [d.center.x, d.center.y] + ")"
-                })
+            d3.select(".bubble").remove()
         } else {
             this.force.gravity(0.1)
             this.force.charge((d, i) => {
@@ -242,8 +236,9 @@ export default class BubbleMap {
         }
     }
 
-    renderBubbles (countries) {
+    renderBubbles (countries, attrId = 'value') {
         this.countries = countries
+        this.valueId = attrId
     }
 
     render () {
@@ -254,8 +249,7 @@ export default class BubbleMap {
 
             if (country) {
                 let bubble = new Bubble(country, this.path.centroid)
-                bubble.setValue(this.countries[key].conn)
-                bubble.setUid(this.countries[key].uid)
+                bubble.setValue(this.countries[key][this.valueId])
                 this.force.nodes().push(bubble)
                 this.countryList.push(bubble)
             }
@@ -276,12 +270,12 @@ export default class BubbleMap {
             texts
 
         bubbles
-            .attr("class", "bubble")
+            .attr("class", "bubbles")
             .selectAll("circle")
             .data(this.countryList)
           .enter()
             .append("circle")
-            .attr("class","bubble-circle")
+            .attr("class","bubble")
             .attr("transform", (d) => {
                 return "translate(" + d.center + ")"
             })
@@ -305,7 +299,7 @@ export default class BubbleMap {
             .attr("dy", (d) => {
                 return d.y_country_name
             })
-            .attr("class","text-country-circle")
+            .attr("class","text-name")
             .style("font-size", (d) => {
                 return d.nameSize + "px"
             })
@@ -324,7 +318,7 @@ export default class BubbleMap {
             .attr("dy", (d) => {
                 return d.y_country_connections
             })
-            .attr("class", "text-connections-circle")
+            .attr("class", "text-value")
             .style("font-size", (d) => {
                 return d.valueSize + "px"
             })
@@ -339,7 +333,7 @@ export default class BubbleMap {
 
     updateBubbles() {
 
-        d3.selectAll(".bubble-circle")
+        d3.selectAll(".bubble")
             .data(this.countryList)
             .transition()
             .attr("duration", 250)
@@ -350,7 +344,7 @@ export default class BubbleMap {
                 return d.getBubbleRadius()
             })
 
-        d3.selectAll(".text-country-circle")
+        d3.selectAll(".text-name")
             .data(this.countryList)
             .style("font-size", (d) => {
                 return d.font_size_country_name + "px"
@@ -364,7 +358,7 @@ export default class BubbleMap {
                 return d.name
             })
 
-        d3.selectAll(".text-connections-circle")
+        d3.selectAll(".text-value")
             .data(this.countryList)
             .style("font-size", (d) => {
                 return d.font_size_country_connections + "px"
@@ -414,19 +408,18 @@ export default class BubbleMap {
         }
 
         let d = this.topodata.find(function (e) {
-            return e.id == id
-        })
+                return e.id == id
+            }),
+            actualId = this.actual ? this.actual.id : null
 
-        if (d && this.actual.id !== d.id) {
+        if (d && actualId !== d.id) {
             var xyz = get_xyz(d)
             this.actual = d
             zoomIn(xyz)
         } else {
-            var xyz = [width / 2, height / 1.45, 1]
+            var xyz = [this.width / 2, this.height / 1.45, 1]
             this.actual = null
             zoomOut(xyz, true)
         }
-
     }
 }
-

@@ -1,10 +1,10 @@
 {
   "name": "bubble-map",
   "version": "0.0.0",
-  "description": "React label list component",
+  "description": "Bubble Map",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ignore-styles test/**/*.spec.js",
-    "build": "babel ./src --out-dir ./lib",
+    "build": "babel ./src --out-dir ./bundle",
     "prepublish": "npm run build && npm run test"
   },
   "repository": {
