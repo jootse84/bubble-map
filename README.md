@@ -42,7 +42,7 @@ Map zooms into the country represented by the 'id'. If 'id' is empty map zooms o
 1. Initialize the map by indicating the id of the HTML element where to display the map, the mapbox token provided from your mapbox account, and the desired width and height of the map.
 
 ```js
-import LabelList from 'bubble-map/bundle/BubbleMap.js'
+import BubbleMap from 'bubble-map/bundle/BubbleMap.js'
 
 let map = new BubbleMap('myElementId', 'my_mapbox_token', 840, 400)
 ```  
