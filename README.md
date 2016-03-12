@@ -1,4 +1,5 @@
 #Bubble Map
+[![npm](https://img.shields.io/npm/v/bubble-map.svg?style=flat-square)](https://www.npmjs.com/package/bubble-map)
 
 Easy-to-use library to visualize your country data in a complete world map (by the use of bubbles).  
 Uses Mapbox tiles, D3 and topojson.  

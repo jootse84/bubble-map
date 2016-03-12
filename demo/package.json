@@ -25,7 +25,7 @@
   "main": "lib",
   "license": "MIT",
   "dependencies": {
-    "bubble-map": "^0.0.0"
+    "bubble-map": "^0.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
