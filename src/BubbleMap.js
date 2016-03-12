@@ -239,14 +239,18 @@ export default class BubbleMap {
     renderBubbles (countries, attrId = 'value') {
         this.countries = countries
         this.valueId = attrId
+        if (this.topodata) {
+            this.force.nodes([])
+            this.countryList = []
+            this.render(false)
+        }
     }
 
-    render () {
+    render (createBubbles = true) {
         for (let key in this.countries) {
             let country = this.topodata.find((element) => {
                 return element.id && element.id == key
             })
-
             if (country) {
                 let bubble = new Bubble(country, this.path.centroid)
                 bubble.setValue(this.countries[key][this.valueId])
@@ -254,15 +258,10 @@ export default class BubbleMap {
                 this.countryList.push(bubble)
             }
         }
-
         this.force.start()
-        /*this.setMinConnections()
-        setInterval(this.goToCountry, 7000)
-
-        setInterval(this.setMinConnections, 3600000)
-        setInterval(this.setMaxConnections, 3600000)*/
-
-        this.setBubbles()
+        if (createBubbles) {
+            this.setBubbles()
+        }
     }
 
     setBubbles () {
@@ -293,12 +292,6 @@ export default class BubbleMap {
         // append country names
         texts
             .append("text")
-            .attr("dx", (d) => {
-                return d.x_country_name
-            })
-            .attr("dy", (d) => {
-                return d.y_country_name
-            })
             .attr("class","text-name")
             .style("font-size", (d) => {
                 return d.nameSize + "px"
@@ -312,12 +305,6 @@ export default class BubbleMap {
         // append values
         texts
             .append("text")
-            .attr("dx", (d) => {
-                return d.x_country_connections
-            })
-            .attr("dy", (d) => {
-                return d.y_country_connections
-            })
             .attr("class", "text-value")
             .style("font-size", (d) => {
                 return d.valueSize + "px"
@@ -347,7 +334,7 @@ export default class BubbleMap {
         d3.selectAll(".text-name")
             .data(this.countryList)
             .style("font-size", (d) => {
-                return d.font_size_country_name + "px"
+                return d.nameSize + "px"
             })
             .transition()
             .attr("duration", 250)
@@ -361,7 +348,7 @@ export default class BubbleMap {
         d3.selectAll(".text-value")
             .data(this.countryList)
             .style("font-size", (d) => {
-                return d.font_size_country_connections + "px"
+                return d.valueSize + "px"
             })
             .transition()
             .attr("duration", 250)

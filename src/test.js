@@ -1,9 +1,9 @@
 import BubbleMap from './BubbleMap'
 
 const token = 'pk.eyJ1Ijoiam9vdHNlODQiLCJhIjoiY2lrandjOTFyMDh5bHUybTZsMnQzZGhzYiJ9.v4EUTBiszBVhvt1wNek2DQ'
-let map = new BubbleMap('map', token, 840, 400)
 
-map.renderBubbles({
+let map = new BubbleMap('map', token, 840, 400)
+let countries = {
   "BD": {"value": 444},
   "BE": {"value": 11490},
   "BF": {"value": 5},
@@ -29,7 +29,18 @@ map.renderBubbles({
   "PE": {"value": 41773},
   "PH": {"value": 773},
   "SA": {"value": 1773}
-}, "value")
+}
+
+map.renderBubbles(countries, "value")
+
+let inter = setInterval(() => {
+    for (let key in countries) {
+        countries[key] = {
+            value: countries[key].value + 10000
+        }
+    }
+    map.renderBubbles(countries, "value")
+}, 2000)
 
 setTimeout(() => {
     map.visitCountry("JP")
@@ -41,4 +52,8 @@ setTimeout(() => {
 
 setTimeout(() => {
     map.visitCountry("")
+}, 20000)
+
+setTimeout(() => {
+    clearInterval(inter)
 }, 20000)

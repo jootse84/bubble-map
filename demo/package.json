@@ -1,0 +1,43 @@
+{
+  "name": "demo-bubble-map",
+  "version": "0.0.0",
+  "description": "Bubble map demo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jootse84/bubble-map"
+  },
+  "keywords": [
+    "d3",
+    "bubble",
+    "map",
+    "maps",
+    "mapbox",
+    "tiles",
+    "countries",
+    "es6",
+    "visualization"
+  ],
+  "files": [
+    "lib",
+    "src",
+    "styles"
+  ],
+  "main": "lib",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.3.21",
+    "babel-loader": "^6.2.0",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "node-libs-browser": "^0.5.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.9.11",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.2.0"
+  }
+}
