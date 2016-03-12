@@ -1,6 +1,6 @@
 {
   "name": "bubble-map",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Bubble Map",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ignore-styles test/**/*.spec.js",
@@ -25,6 +25,7 @@
   "files": [
     "lib",
     "src",
+    "json",
     "bundle",
     "styles"
   ],

@@ -11,6 +11,7 @@ Allows to zoom-in, zoom-out and life update of your data.
 ## Dependencies
 
 It is required to import topojson in your HTML (see demo as reference).  
+Also to include the folder '/json' in the root of your project.  
 
 ```html
     <script src="topojson.js"></script>
