@@ -239,10 +239,17 @@ export default class BubbleMap {
     renderBubbles (countries, attrId = 'value') {
         this.countries = countries
         this.valueId = attrId
+
         if (this.topodata) {
             this.force.nodes([])
             this.countryList = []
             this.render(false)
+        } else {
+            let max = 0
+            for (let key in countries) {
+                max = Math.max(max, countries[key][attrId])
+            }
+            this.factor = max
         }
     }
 
@@ -253,7 +260,7 @@ export default class BubbleMap {
             })
             if (country) {
                 let bubble = new Bubble(country, this.path.centroid)
-                bubble.setValue(this.countries[key][this.valueId])
+                bubble.setValue(this.countries[key][this.valueId], this.factor)
                 this.force.nodes().push(bubble)
                 this.countryList.push(bubble)
             }

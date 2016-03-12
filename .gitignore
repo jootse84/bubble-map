@@ -14,9 +14,6 @@
 *.swo
 *~
 
-# bundle files 
-bundle/
-
 # npm modules
 node_modules/
 

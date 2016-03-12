@@ -70,8 +70,9 @@ export default class Bubble {
     }
 
 
-    setValue (value) {
+    setValue (value, factor = 10000) {
         this.value = value
+        this.factor = factor
         this.nameSize = this.fontSize(this.name)
         this.nameDims = this.size(this.name, ["text-name"])
         this.valueSize = this.fontSize(String(this.value))
@@ -79,7 +80,9 @@ export default class Bubble {
     }
 
     getBubbleRadius () {
-        return Math.max(Math.min(Math.round(this.value) / 10000, 35), 3.5)
+        const pixels = Math.round(35 * this.value / this.factor)
+        console.log('radius ', pixels)
+        return Math.max(Math.min(pixels, 35), 3.5)
     }
 
     fontSize (text) {
@@ -121,11 +124,6 @@ export default class Bubble {
         divElement.parentNode.removeChild(divElement)
 
         return dimensions
-    }
-
-
-    setUid (uid) {
-        this.uid = uid
     }
 
     getNamePosition (xpoint, ypoint) {

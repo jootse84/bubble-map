@@ -1,35 +1,45 @@
-import BubbleMap from 'BubbleMap/bundle/BubbleMap.js'
+import BubbleMap from 'bubble-map/bundle/BubbleMap.js'
 
 const token = 'pk.eyJ1Ijoiam9vdHNlODQiLCJhIjoiY2lrandjOTFyMDh5bHUybTZsMnQzZGhzYiJ9.v4EUTBiszBVhvt1wNek2DQ'
-let map = new BubbleMap('map', token, 840, 400)
 
-map.renderBubbles({
-  "BD": {"uid": 623, "conn": 444},
-  "BE": {"uid": 14554, "conn": 11490},
-  "BF": {"uid": 32, "conn": 5},
-  "BG": {"uid": 963, "conn": 1011},
-  "BA": {"uid": 364, "conn": 1150},
-  "BB": {"uid": 171, "conn": 22},
-  "BM": {"uid": 61, "conn": 8},
-  "BN": {"uid": 379, "conn": 97},
-  "BO": {"uid": 226, "conn": 11},
-  "JP": {"uid": 235600, "conn": 62141773},
-  "JM": {"uid": 395, "conn": 226},
-  "IND": {"uid": 235600, "conn": 62141773},
-  "E": {"uid": 235600, "conn": 641773},
-  "CN": {"uid": 235600, "conn": 12141773},
-  "MX": {"uid": 235600, "conn": 41773},
-  "BR": {"uid": 235600, "conn": 1773},
-  "FIN": {"uid": 235600, "conn": 2141773},
-  "D": {"uid": 235600, "conn": 41773},
-  "GB": {"uid": 235600, "conn": 2773},
-  "VN": {"uid": 235600, "conn": 41773},
-  "AR": {"uid": 235600, "conn": 1773},
-  "INDO": {"uid": 235600, "conn": 41773},
-  "PE": {"uid": 235600, "conn": 41773},
-  "PH": {"uid": 235600, "conn": 773},
-  "SA": {"uid": 235600, "conn": 1773}
-})
+let map = new BubbleMap('map', token, 840, 400)
+let countries = {
+  "BD": {"value": 444},
+  "BE": {"value": 11490},
+  "BF": {"value": 5},
+  "BG": {"value": 1011},
+  "BA": {"value": 1150},
+  "BB": {"value": 22},
+  "BM": {"value": 8},
+  "BN": {"value": 97},
+  "BO": {"value": 11},
+  "JP": {"value": 62773},
+  "JM": {"value": 226},
+  "IND": {"value": 41773},
+  "CN": {"value": 121773},
+  "MX": {"value": 41773},
+  "BR": {"value": 1773},
+  "FIN": {"value": 273},
+  "D": {"value": 41773},
+  "GB": {"value": 2773},
+  "VN": {"value": 41773},
+  "AR": {"value": 1773},
+  "INDO": {"value": 41773},
+  "PE": {"value": 41773},
+  "PH": {"value": 773},
+  "SA": {"value": 1773}
+}
+
+map.renderBubbles(countries, "value")
+
+let inter = setInterval(() => {
+    for (let key in countries) {
+        countries[key] = {
+            value: countries[key].value + 1000
+        }
+    }
+    map.renderBubbles(countries, "value")
+}, 2000)
 
 setTimeout(() => {
     map.visitCountry("JP")
@@ -41,4 +51,8 @@ setTimeout(() => {
 
 setTimeout(() => {
     map.visitCountry("")
+}, 20000)
+
+setTimeout(() => {
+    clearInterval(inter)
 }, 20000)

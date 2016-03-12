@@ -1,18 +1,63 @@
 #Bubble Map
 
-Easy-to-use library to visualize your country data ina world map, using Mapbox tiles, D3 and topojson.  
-Allows to zoom-in, zoom-out and life update of your country data.
+Easy-to-use library to visualize your country data in a complete world map (by the use of bubbles).  
+Uses Mapbox tiles, D3 and topojson.  
+Allows to zoom-in, zoom-out and life update of your data.  
 
 ![Screencast](./images/example.gif)
 
+
+## Dependencies
+
+It is required to import topojson in your HTML (see demo as reference).  
+
+```html
+    <script src="topojson.js"></script>
+```  
+
+[D3](https://d3js.org/)
+[Mapbox](https://www.mapbox.com)
+[Less](http://lesscss.org/)
+
+## API
+
+  * <a href="#render"><code>map.<b>renderBubbles()</b></code></a>
+  * <a href="#zoom"><code>map.<b>visitCountry()</b></code></a>
+
+-------------------------------------------------------
+<a name="render"></a>
+### map.renderBubbles({data}, attrId)
+
+Updata the data of the map from the json object.
+Every attribute of the json object must be a country represented by its topojson id. The attribute contains another object with the value in its 'attrId' attribute.
+
+-------------------------------------------------------
+<a name="zoom"></a>
+### map.visitCountry(id)
+
+Map zooms into the country represented by the 'id'. If 'id' is empty map zooms out to display the whole map.
+
 ## Usage
 
+Firstly initialize  
+
 ```js
-import LabelList from 'BubbleMap/bundle/BubbleMap.js'
+import LabelList from 'bubble-map/bundle/BubbleMap.js'
 
 let map = new BubbleMap('myElementId', 'my_mapbox_token', 840, 400)
+```  
+
+Now we can render our information every time there is a relevant update of our data.
+
+```js
 map.renderBubbles({
   "JP": {"value": 62141773},
   "AR": {"value": 1773}
 }, "value")
+```  
+
+We can even zoom-in and display a relevant value, i.e. zoom into Japan.
+
+```js
+map.visitCountry("JP")
 ```
