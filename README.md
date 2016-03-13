@@ -3,7 +3,7 @@
 
 Easy-to-use library to visualize your country data in a complete world map (by the use of bubbles).  
 Uses Mapbox tiles, D3 and topojson.  
-Allows to zoom-in, zoom-out and life update of your data.  
+Allows to zoom-in, zoom-out and live update of your data.  
 
 ![Screencast](./images/example.gif)
 
